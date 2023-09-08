@@ -47,6 +47,61 @@ p {
 }
 
 
+.accordion-header {
+
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.accordion-content {
+  display: none;
+
+}
+
+
+
+
+
+/* slider */
+/* .slider-container {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.prev-button,
+.next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.prev-button {
+  left: 0;
+}
+
+.next-button {
+  right: 0;
+} */
+
+
 .header {
   background-color: $black;
 
@@ -162,6 +217,9 @@ p {
       border: none;
       padding: 14px 28px;
       border-radius: 8px;
+      &:hover {
+        background-color: rgb(85 96 95);
+      }
     }
   }
 
@@ -200,6 +258,227 @@ p {
       }
     }
   }
+}
+
+#submitButton {
+  background: $dark-green;
+  padding: 18px 22px;
+  font-size: 12px;
+  color: $white;
+  font-weight: 400;
+  line-height: 14px;
+  margin-bottom:12px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  &:hover {
+    background-color: rgb(85 96 95);
+  }
+}
+
+/* modal */
+#modalText {
+  text-align: left;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 37rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 335px;
+  height: 1073px;
+  background-color: $white;
+  box-shadow: 0px 0px 8.77546px 0px rgba(0, 0, 0, 0.01), 0px 0px 18.17037px 0px rgba(0, 0, 0, 0.02), 0px 0px 36.2375px 0px rgba(0, 0, 0, 0.03), 0px 0px 71.02963px 0px rgba(0, 0, 0, 0.03), 0px 0px 130.59953px 0px rgba(0, 0, 0, 0.04), 0px 0px 223px 0px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 12px;
+
+  &-img {
+    text-align: center;
+  }
+
+  &-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    & p {
+      color: var(--black, #141414);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      /* 128.571% */
+      letter-spacing: -0.28px;
+    }
+
+    & span {
+      color: rgba(20, 20, 20, 0.50);
+      font-family: Epilogue;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 14px;
+      /* 116.667% */
+      letter-spacing: -0.24px;
+    }
+
+    &__inputs {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 40px;
+
+      & label {
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 14px;
+        letter-spacing: -0.24px;
+        margin-bottom: 12px;
+      }
+
+      & input {
+        margin-bottom: 18px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid $grrrey;
+
+
+        &::placeholder {
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 18px;
+          letter-spacing: -0.28px;
+          color: $grrrey;
+        }
+      }
+
+      & textarea {
+
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid $grrrey;
+        margin-bottom: 20px;
+
+        &::placeholder {
+          font-family: Epilogue;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 18px;
+          letter-spacing: -0.28px;
+          color: $grrrey;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+.loader {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.block {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.block-info {
+  display: none;
+  position: absolute;
+  background-color: $dark-green;
+  /* Replace with your desired color */
+  width: fit-content;
+  height: 100%;
+  padding: 40px;
+
+  &__descr {
+    margin-bottom: 16px;
+  }
+
+  & h3 {
+    font-size: 14px;
+    color: $white;
+    font-weight: 400;
+    line-height: 18px;
+    /* 128.571% */
+    letter-spacing: -0.28px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  & h5 {
+    color: rgba(255, 255, 255, 0.50);
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    /* 128.571% */
+    letter-spacing: -0.14px;
+  }
+}
+
+.block:hover .block-info {
+  display: block;
+}
+
+.block:active {
+  border: 1px solid $dark-green;
+  box-shadow: 0px 0px 8.77546px 0px rgba(0, 0, 0, 0.01), 0px 0px 18.17037px 0px rgba(0, 0, 0, 0.02), 0px 0px 36.2375px 0px rgba(0, 0, 0, 0.03), 0px 0px 71.02963px 0px rgba(0, 0, 0, 0.03), 0px 0px 130.59953px 0px rgba(0, 0, 0, 0.04), 0px 0px 223px 0px rgba(0, 0, 0, 0.05);
+}
+
+
+.blur-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+
+
+.blur-background h2 {
+  width: 335px;
+  height: 100px;
+  background-color: white !important;
+  color: green;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  & span {
+    position: absolute;
+    top: 43%;
+    left: 92%;
+  }
+}
+
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .green {
@@ -379,7 +658,12 @@ p {
   color: red;
   text-decoration: none;
 }
-
+.navbar-menu.open {
+  display: block;
+  -webkit-transition:max-height 0.4s linear;
+  -moz-transition:max-height 0.4s linear;
+  transition:max-height 0.4s linear;
+}
 .close-icon span {
   height: 24px;
   width: 24px;
@@ -741,6 +1025,39 @@ p {
 
     }
   }
+
+  .blur-background h2 {
+    & span {
+
+      left: 70%;
+    }
+  }
+
+  .modal {
+    width: 744px;
+    height: 670px;
+    padding: 40px;
+    top: 30rem;
+    &-img {
+      width: 368px;
+      margin-top: 26px;
+    }
+    &-content {
+      flex-direction: row;
+      justify-content: space-between;
+
+
+
+      &__inputs {
+        width: 368px;
+        & textarea {
+
+          height:166px;
+        }
+      }
+
+    }
+  }
 }
 
 @media (min-width: 992px) {
@@ -881,6 +1198,24 @@ p {
           margin-right: 355px;
         }
       }
+    }
+
+  }
+
+  .blur-background h2 {
+    & span {
+      top: 40%;
+      left: 61%;
+    }
+  }
+
+  .modal {
+    top: 30rem;
+    width: 904px;
+    height: 694px;
+    &-img {
+      width: 368px;
+      margin-top: 26px;
     }
 
   }
