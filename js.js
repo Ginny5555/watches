@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
       navbarMenu.style.display = "block";
       burgerIcon.style.display = "none";
       closeIcon.style.display = "block";
+///
+     // navBar.classList.add("open-nav");
+///
+
+      ///  если стиль добавить не перебивает
       navBar.style.background = "#1E2827";
       navBar.style.position ="fixed";
       navBar.style.width ="100%";
@@ -108,9 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (previousClickedBlock) {
         previousClickedBlock.style.backgroundColor = 'transparent';
       }
-      let image = this.querySelector('img');
-      let title = this.querySelector('p').textContent;
-      let price = this.querySelector('span').textContent;
+      let image = this.querySelector('.watch-pic');
+      let title = this.querySelector('.watch-articul').textContent;
+      let price = this.querySelector('.watch-price').textContent;
       let block = this.querySelector('.block');
       // block.style.border= "1px solid #1E2827" ;
       block.style.backgroundColor= "rgb(89 99 98 / 11%)" ;

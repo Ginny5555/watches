@@ -58,8 +58,13 @@ p {
   display: none;
 
 }
-
-
+/* .open-nav {
+background-color: #1E2827!important;
+position :fixed!important;
+ width :100%!important;
+height :100%!important;
+z-index: 2!important;
+} */
 
 
 
@@ -281,12 +286,11 @@ img {
   text-align: left;
 }
 .modal {
-  display: none;
+
   position: fixed;
   top: 37rem;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: 335px;
   height: 1073px;
   background-color: $white;
@@ -659,7 +663,7 @@ img {
   text-decoration: none;
 }
 .navbar-menu.open {
-  display: block;
+  height: 0;
   -webkit-transition:max-height 0.4s linear;
   -moz-transition:max-height 0.4s linear;
   transition:max-height 0.4s linear;
