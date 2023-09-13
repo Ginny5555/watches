@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const navbarToggle = document.querySelector(".navbar-toggle");
   const navbarMenu = document.querySelector(".navbar-menu");
@@ -16,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
       burgerIcon.style.display = "none";
       closeIcon.style.display = "block";
 ///
-     // navBar.classList.add("open-nav");
+    //  navBar.classList.add("open-nav");
 ///
 
       ///  если стиль добавить не перебивает
@@ -59,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Form validation and submit code
+  const submitForm = document.getElementById("submitForm");
   const emailInput = document.getElementById("emailInput");
   const nameInput = document.getElementById("nameInput");
   const cardInput = document.getElementById("creditCard");
@@ -66,6 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitButton = document.getElementById("submitButton");
   const thankYouMessage = document.getElementById("thankYouMessage");
   const closeThankYou = document.getElementById("closeThankYou");
+  const emailValidationMessage = document.getElementById("emailValidationMessage");
+
+// submitForm.addEventListener( 'submit',( SubmitEvent) =>{
+//   Event.preventDefault();
+//   console.log(this);
+//   // document.querySelector(`input[name=${this}]`).
+// })
+
   thankYouMessage.style.display = "none";
   function isValidEmail(email) {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -86,16 +97,20 @@ document.addEventListener("DOMContentLoaded", function () {
       comment.trim() !== "";
 
     if (isValidEmailFlag && isNotEmptyFields) {
-      emailInput.style.borderColor = "initial";
-      nameInput.style.borderColor = "initial";
-      cardInput.style.borderColor = "initial";
-      commentInput.style.borderColor = "initial";
+      emailInput.classList.remove('red-border');
+
+      emailValidationMessage.classList.add('valid-message');
       submitButton.disabled = false;
     } else {
-      emailInput.style.borderColor = isValidEmailFlag || email !== "" ? "initial" : "red";
-      nameInput.style.borderColor = name === "" ? "red" : "initial";
-      cardInput.style.borderColor = card === "" ? "red" : "initial";
-      commentInput.style.borderColor = comment === "" ? "red" : "initial";
+      const shouldRemoveClasses = isValidEmailFlag ;
+      emailInput.classList.toggle('red-border', !shouldRemoveClasses);
+      emailValidationMessage.classList.toggle('valid-message', shouldRemoveClasses);
+
+      // emailInput.style.borderColor = isValidEmailFlag  === "" ? "initial" : "red";
+      nameInput.classList.toggle('red-border', !isNotEmptyFields);
+      cardInput.classList.toggle('red-border');
+      commentInput.classList.toggle('red-border');
+
       submitButton.disabled = true;
     }
   }
@@ -206,19 +221,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // accordion
+
 const accordionItems = document.querySelectorAll(".accordion-item");
 document.addEventListener("DOMContentLoaded", function () {
-    accordionItems.forEach((item, index) => { // Add an index parameter
-        const header = item.querySelector(".accordion-header");
+    accordionItems.forEach((item, index) => {
+        const header = item.querySelector(".accordion-header"); // Define the header variable
         const content = item.querySelector(".accordion-content");
         const icon = item.querySelector(".icon");
 
         // Initialize the first block as open, and the others as closed
         if (index === 0) {
-            content.style.display = "block";
+            content.classList.add('open-accordion');
+            content.classList.remove('close-accordion');
             icon.src = "../img/minus.svg"; // Show minus icon
         } else {
-            content.style.display = "none";
+          content.classList.add('close-accordion');
+          content.classList.remove('open-accordion');
             icon.src = "../img/cross.svg"; // Show cross icon
         }
 
@@ -229,19 +247,65 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (otherIndex === index) {
                     // Toggle the clicked block
-                    if (content.style.display === "block") {
-                        content.style.display = "none";
-                        icon.src = "../img/cross.svg"; // Show cross icon
+                    if (otherContent.classList.contains('open-accordion')) {
+                        otherContent.classList.remove('open-accordion');
+                        otherContent.classList.add('close-accordion');
+                        otherIcon.src = "../img/cross.svg"; // Show cross icon
                     } else {
-                        content.style.display = "block";
-                        icon.src = "../img/minus.svg"; // Show minus icon
+                        otherContent.classList.remove('close-accordion');
+                        otherContent.classList.add('open-accordion');
+                        otherIcon.src = "../img/minus.svg"; // Show minus icon
                     }
                 } else {
                     // Close other blocks
-                    otherContent.style.display = "none";
+                    otherContent.classList.remove('open-accordion');
+                    otherContent.classList.add('close-accordion');
                     otherIcon.src = "../img/cross.svg"; // Show cross icon for others
                 }
             });
         });
     });
 });
+
+
+const slides = document.querySelectorAll('.slide');
+const prevButton = document.getElementById('prevBtn');
+const nextButton = document.getElementById('nextBtn');
+const currentIndex = document.getElementById('currentIndex');
+let currentSlide = 1;
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    // slide.style.display = i === index ? 'block' : 'none';
+  const  indexSlide = i === index ;
+    slide.classList.toggle('show', indexSlide);
+  });
+
+currentIndex.textContent= `${index}`;
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(currentSlide);
+}
+
+prevButton.addEventListener('click', prevSlide);
+nextButton.addEventListener('click', nextSlide);
+
+showSlide(currentSlide);
+
+
+
+/// slick slider
+// $(document).ready(function(){
+//   $('.slider').slick({
+//     autoplay: true,
+//     autoplaySpeed: 2000,
+//     dots: true, // Отображать точки для навигации
+//   });
+// });
