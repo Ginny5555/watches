@@ -52,9 +52,79 @@ position :fixed!important;
 height :100%!important;
 z-index: 2!important;
 } */
+.close-icon:before {
+  content: "";
+  height: 24px;
+  width: 24px;
+  display: block;
+  margin: 6px 0;
+  transition: all 0.3s ease;
+  background-image: url("../img/x.svg");
+}
+
+.open-icon:before {
+  content: "";
+  background-image: url("../img/burger.svg") !important;
+  height: 24px;
+  width: 30px;
+  display: block;
+  margin: 6px 0;
+  transition: all 0.3s ease;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  background-color: #1E2827;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: -100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  transition: max-height 0.4s linear;
+}
+
+.navbar-menu li {
+  width: 55px;
+  margin: 0 auto 14px;
+}
+.navbar-menu li:first-child {
+  text-align: left;
+}
+
+.navbar-menu li a {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  /* 128.571% */
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+  color: #FFF;
+}
+
+.close-icon {
+  display: none;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+body:has(.open-nav) {
+  overflow: hidden !important;
+}
+
 .navbar.open-nav .navbar-toggle {
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   left: 0;
   top: 0;
@@ -63,6 +133,8 @@ z-index: 2!important;
   top: 0;
   left: 0;
   padding-top: 200px;
+  z-index: 1;
+  max-height: 100%;
 }
 .navbar.open-nav .open-icon {
   display: none;
@@ -71,7 +143,7 @@ z-index: 2!important;
   display: block;
 }
 
-.red-border {
+.invalid-input {
   border: 1px solid red !important;
 }
 
@@ -217,6 +289,11 @@ img {
 }
 .catalog-button button:hover {
   background-color: rgb(85, 96, 95);
+}
+.catalog-four {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .catalog-four__two-img {
   display: flex;
@@ -407,6 +484,7 @@ img {
 
 .block:hover .block-info {
   display: block;
+  cursor: pointer;
 }
 
 .block:active {
@@ -530,7 +608,8 @@ img {
   letter-spacing: -0.14px;
 }
 
-.burger-icon span {
+.open-icon:before {
+  content: "";
   background-image: url("../img/burger.svg");
   height: 24px;
   width: 30px;
@@ -542,22 +621,24 @@ img {
 
 .navbar-menu {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: none;
   background-color: #1E2827;
-  height: 100%;
+  max-height: 0;
   width: 100%;
-  position: absolute;
-  margin-top: -1px;
-  padding-top: 200px;
+  position: fixed;
+  top: -100%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  transition: max-height 0.4s linear;
 }
 
 .navbar-menu li {
   width: 55px;
-  margin: 0 auto;
-  margin-bottom: 14px;
+  margin: 0 auto 14px;
 }
 .navbar-menu li:first-child {
   text-align: left;
@@ -574,18 +655,12 @@ img {
   color: #FFF;
 }
 
-.navbar-menu.active {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
 .navbar-toggle {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 29px 20px 0 20px;
-  height: 24px;
+  padding-top: 20px;
+  max-height: 24px;
 }
 
 .burger-icon {
@@ -604,7 +679,7 @@ img {
   transition: max-height 0.4s linear;
 }
 
-.close-icon span {
+.close-icon {
   height: 24px;
   width: 24px;
   display: block;
@@ -768,6 +843,8 @@ img {
     background: transparent;
     position: relative;
     align-items: center;
+    flex-direction: row;
+    top: 0;
   }
   .navbar-menu li {
     margin: 0;
@@ -810,7 +887,7 @@ img {
   }
   .catalog-four {
     display: flex;
-    flex-flow: wrap;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
   .green-img {
@@ -949,7 +1026,7 @@ img {
     margin: 80px 0;
   }
   .catalog-four {
-    flex-flow: row;
+    flex-wrap: row;
   }
   .catalog-four__two-img img {
     padding: 43px 0px;
@@ -958,7 +1035,7 @@ img {
     margin-top: 80px;
   }
   .about-img {
-    width: 892px;
+    width: 80%;
     margin-left: 18rem;
   }
   .about-title h2 {
@@ -1080,4 +1157,12 @@ button {
   transition: max-height 0.5s ease-out;
   overflow: hidden;
   opacity: 1;
+}
+
+svg {
+  cursor: pointer;
+}
+
+svg:hover {
+  stroke-opacity: 0.5; /* Change the stroke opacity to 0 on hover */
 }

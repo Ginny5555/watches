@@ -1,46 +1,15 @@
-
-
 document.addEventListener("DOMContentLoaded", function () {
-  const navbarToggle = document.querySelector(".navbar-toggle");
-  const navbarMenu = document.querySelector(".navbar-menu");
   const burgerIcon = document.querySelector(".burger-icon");
-  const closeIcon = document.querySelector(".close-icon");
   const navBar = document.querySelector('.navbar');
-  let menuOpen = false;
 
   // Function to toggle the menu state
   function toggleMenu() {
-    menuOpen = !menuOpen;
+      navBar.classList.toggle("open-nav");
 
-    if (menuOpen) {
-      navbarMenu.classList.add("open");
-      navbarMenu.style.display = "block";
-      burgerIcon.style.display = "none";
-      closeIcon.style.display = "block";
-///
-    //  navBar.classList.add("open-nav");
-///
-
-      ///  если стиль добавить не перебивает
-      navBar.style.background = "#1E2827";
-      navBar.style.position ="fixed";
-      navBar.style.width ="100%";
-      navBar.style.height ="100%";
-      navBar.style.zIndex = "2";
-    } else {
-      navbarMenu.classList.remove("open");
-      navbarMenu.style.display = "none";
-      burgerIcon.style.display = "block";
-      closeIcon.style.display = "none";
-      navBar.style.background = "transparent";
-      navBar.style.position ="inherit";
-
-    }
+      document.querySelector("body").classList.toggle("overflow-hidden");
   }
 
-  // Add click event listeners to both burgerIcon and closeIcon
   burgerIcon.addEventListener("click", toggleMenu);
-  closeIcon.addEventListener("click", toggleMenu);
 });
 document.addEventListener("DOMContentLoaded", function () {
   // Modal code (unchanged)
@@ -61,128 +30,181 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Form validation and submit code
-  const submitForm = document.getElementById("submitForm");
-  const emailInput = document.getElementById("emailInput");
-  const nameInput = document.getElementById("nameInput");
-  const cardInput = document.getElementById("creditCard");
-  const commentInput = document.getElementById("text");
-  const submitButton = document.getElementById("submitButton");
-  const thankYouMessage = document.getElementById("thankYouMessage");
-  const closeThankYou = document.getElementById("closeThankYou");
-  const emailValidationMessage = document.getElementById("emailValidationMessage");
+// Form validation and submit code
+const submitForm = document.getElementById("submitForm");
+const mail = document.getElementById("mail");
+const user = document.getElementById("user");
+const card = document.getElementById("card");
+const commentInput = document.getElementById("text");
+const submitButton = document.getElementById("submitButton");
+const thankYouMessage = document.getElementById("thankYouMessage");
+const closeThankYou = document.getElementById("closeThankYou");
+const emailValidationMessage = document.getElementById("emailValidationMessage");
 
-// submitForm.addEventListener( 'submit',( SubmitEvent) =>{
-//   Event.preventDefault();
-//   console.log(this);
-//   // document.querySelector(`input[name=${this}]`).
-// })
+function isValidEmail(email) {
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  return emailPattern.test(email);
 
-  thankYouMessage.style.display = "none";
-  function isValidEmail(email) {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(email);
+}
+function displayEmailValidationMessage() {
+  if (!isValidEmail(mail.value)) {
+    emailValidationMessage.style.display = "block";
+  } else {
+    emailValidationMessage.style.display = "none";
   }
-
-  function validateFields() {
-    const email = emailInput.value;
-    const name = nameInput.value;
-    const card = cardInput.value;
-    const comment = commentInput.value;
-
-    const isValidEmailFlag = isValidEmail(email);
-    const isNotEmptyFields =
-      email.trim() !== "" &&
-      name.trim() !== "" &&
-      card.trim() !== "" &&
-      comment.trim() !== "";
-
-    if (isValidEmailFlag && isNotEmptyFields) {
-      emailInput.classList.remove('red-border');
-
-      emailValidationMessage.classList.add('valid-message');
-      submitButton.disabled = false;
-    } else {
-      const shouldRemoveClasses = isValidEmailFlag ;
-      emailInput.classList.toggle('red-border', !shouldRemoveClasses);
-      emailValidationMessage.classList.toggle('valid-message', shouldRemoveClasses);
-
-      // emailInput.style.borderColor = isValidEmailFlag  === "" ? "initial" : "red";
-      nameInput.classList.toggle('red-border', !isNotEmptyFields);
-      cardInput.classList.toggle('red-border');
-      commentInput.classList.toggle('red-border');
-
-      submitButton.disabled = true;
-    }
+}
+mail.addEventListener("input", displayEmailValidationMessage);
+function fieldsValidate(value, key) {
+  if (value.trim() === '') {
+    document.getElementById(key).classList.add('invalid-input');
+    return false;
+  } else {
+    document.getElementById(key).classList.remove('invalid-input');
+    return true;
   }
+}
 
-  emailInput.addEventListener("input", validateFields);
-  nameInput.addEventListener("input", validateFields);
-  cardInput.addEventListener("input", validateFields);
-  commentInput.addEventListener("input", validateFields);
+submitForm.addEventListener('submit', (SubmitEvent) => {
+  SubmitEvent.preventDefault();
+  const formData = new FormData(SubmitEvent.target);
+  const formDataObj = {};
+  let isValidate = true;
 
-  // Click event for imageElements
-  let previousClickedBlock = null;
-  let imageElements = document.querySelectorAll('.catalog-four__two-img');
-  for (let i = 0; i < imageElements.length; i++) {
-    imageElements[i].addEventListener('click', function () {
-      if (previousClickedBlock) {
-        previousClickedBlock.style.backgroundColor = 'transparent';
-      }
-      let image = this.querySelector('.watch-pic');
-      let title = this.querySelector('.watch-articul').textContent;
-      let price = this.querySelector('.watch-price').textContent;
-      let block = this.querySelector('.block');
-      // block.style.border= "1px solid #1E2827" ;
-      block.style.backgroundColor= "rgb(89 99 98 / 11%)" ;
-      previousClickedBlock = block;
-
-      modalImage.src = image.src;
-      modalText.innerHTML = '<strong>' + title + '</strong><br>' + '<span>' + price + '</span>';
-    });
-  }
-
-  // Click event for submitButton
-  submitButton.addEventListener("click", function () {
-    const email = emailInput.value;
-    const name = nameInput.value;
-    const card = cardInput.value;
-    const comment = commentInput.value;
-
-    if (isValidEmail(email) && email.trim() !== "" && name.trim() !== "" && card.trim() !== "" && comment.trim() !== "") {
-      submitButton.innerHTML = '<img src="../img/loader.gif" class="loader" alt="Loading...">';
-      setTimeout(() => {
-      let image = document.querySelector('.catalog-four__two-img img');
-      console.log(['name: ' + name + ', email: ' + email + ', card: ' + card + ', comment: ' + comment + ', image src: ' + image.src]);
-      submitButton.innerHTML = 'Submit';
-      modal.style.display = "none";
-      thankYouMessage.style.display = "flex";
-      closeThankYou.addEventListener("click", () => {
-        thankYouMessage.style.display = "none";
-      });
-    }, 1000)
-      // // Show "thank you" message in the modal
-      // modalText.innerHTML = '<strong>Thank you for your submission!</strong>';
-      // Clear the form
-      emailInput.value = "";
-      nameInput.value = "";
-      cardInput.value = "";
-      commentInput.value = "";
-      // Disable the submit button
-      submitButton.disabled = true;
-    } else {
-      // Handle the case where the submit button is clicked but the form is not valid
-      // alert("Please fill out all required fields correctly.");
-      const email = emailInput.value;
-      const name = nameInput.value;
-      const card = cardInput.value;
-      const comment = commentInput.value;
-      emailInput.style.borderColor = email === "" ? "red" : "initial";
-      nameInput.style.borderColor = name === "" ? "red" : "initial";
-      cardInput.style.borderColor = card === "" ? "red" : "initial";
-      commentInput.style.borderColor = comment === "" ? "red" : "initial";
-      submitButton.disabled = true;
+  formData.forEach((value, key) => {
+    formDataObj[key] = value;
+    if (!fieldsValidate(value, key)) {
+      isValidate = false;
     }
   });
+
+  if (isValidate && isValidEmail(mail.value)) {
+    console.log(formDataObj);
+    // Add code to submit the form here
+
+    submitButton.innerHTML = '<img src="../img/loader.gif" class="loader" alt="Loading...">';
+        setTimeout(() => {
+
+
+        submitButton.innerHTML = 'Submit';
+        modal.style.display = "none";
+        thankYouMessage.style.display = "flex";
+        closeThankYou.addEventListener("click", () => {
+          thankYouMessage.style.display = "none";
+        });
+      }, 1000)
+        // // Show "thank you" message in the modal
+        modalText.innerHTML = '<strong>Thank you for your submission!</strong>';
+        // Clear the form
+        mail.value = "";
+        user.value = "";
+        card.value = "";
+        commentInput.value = "";
+
+
+  } else {
+    console.log('invalid fields');
+    displayEmailValidationMessage(true);
+  }
+});
+
+
+
+thankYouMessage.style.display = "none";
+
+
+// function validateFields() {
+//   const emailValue = mail.value;
+//   const nameValue = user.value;
+//   const cardValue = card.value;
+//   const commentValue = commentInput.value;
+
+//   const isValidEmailFlag = isValidEmail(emailValue);
+//   const isNotEmptyFields =
+//     emailValue.trim() !== "" &&
+//     nameValue.trim() !== "" &&
+//     cardValue.trim() !== "" &&
+//     commentValue.trim() !== "";
+
+//   mail.classList.toggle('red-border', !isValidEmailFlag);
+//   emailValidationMessage.classList.toggle('valid-message', isValidEmailFlag);
+
+//   user.classList.toggle('red-border', !isNotEmptyFields);
+//   card.classList.toggle('red-border', cardValue.trim() === "");
+//   commentInput.classList.toggle('red-border', commentValue.trim() === "");
+
+//   submitButton.disabled = !(isValidEmailFlag && isNotEmptyFields);
+// }
+
+// mail.addEventListener("input", validateFields);
+// user.addEventListener("input", validateFields);
+// card.addEventListener("input", validateFields);
+// commentInput.addEventListener("input", validateFields);
+
+// Rest of your code...
+
+// Click event for imageElements
+let previousClickedBlock = null;
+let imageElements = document.querySelectorAll('.catalog-four__two-img');
+for (let i = 0; i < imageElements.length; i++) {
+  imageElements[i].addEventListener('click', function () {
+    if (previousClickedBlock) {
+      previousClickedBlock.style.backgroundColor = 'transparent';
+    }
+    let image = this.querySelector('.watch-pic');
+    let title = this.querySelector('.watch-articul').textContent;
+    let price = this.querySelector('.watch-price').textContent;
+    let block = this.querySelector('.block');
+    block.style.backgroundColor = "rgb(89 99 98 / 11%)";
+    previousClickedBlock = block;
+
+    modalImage.src = image.src;
+    modalText.innerHTML = '<strong>' + title + '</strong><br>' + '<span>' + price + '</span>';
+  });
+}
+
+
+  // Click event for submitButton
+  // submitButton.addEventListener("click", function () {
+  //   const email = mail.value;
+  //   const name = user.value;
+  //   const cardValue = card.value;
+  //   const comment = commentInput.value;
+
+  //   if (isValidEmail(email) && email.trim() !== "" && name.trim() !== "" && cardValue.trim() !== "" && comment.trim() !== "") {
+  //     submitButton.innerHTML = '<img src="../img/loader.gif" class="loader" alt="Loading...">';
+  //     setTimeout(() => {
+  //     let image = document.querySelector('.catalog-four__two-img img');
+  //     console.log(['name: ' + name + ', email: ' + email + ', card: ' + cardValue + ', comment: ' + comment + ', image src: ' + image.src]);
+  //     submitButton.innerHTML = 'Submit';
+  //     modal.style.display = "none";
+  //     thankYouMessage.style.display = "flex";
+  //     closeThankYou.addEventListener("click", () => {
+  //       thankYouMessage.style.display = "none";
+  //     });
+  //   }, 1000)
+  //     // // Show "thank you" message in the modal
+  //     modalText.innerHTML = '<strong>Thank you for your submission!</strong>';
+  //     // Clear the form
+  //     mail.value = "";
+  //     user.value = "";
+  //     card.value = "";
+  //     commentInput.value = "";
+  //     // Disable the submit button
+  //     submitButton.disabled = true;
+  //   } else {
+  //     // Handle the case where the submit button is clicked but the form is not valid
+  //     // alert("Please fill out all required fields correctly.");
+  //     const email = mail.value;
+  //     const name = user.value;
+  //     const cardValue = card.value;
+  //     const comment = commentInput.value;
+  //     mail.style.borderColor = email === "" ? "red" : "initial";
+  //     user.style.borderColor = name === "" ? "red" : "initial";
+  //     card.style.borderColor = cardValue === "" ? "red" : "initial";
+  //     commentInput.style.borderColor = comment === "" ? "red" : "initial";
+  //     submitButton.disabled = true;
+  //   }
+  // });
 });
 
 // slider
@@ -281,7 +303,7 @@ function showSlide(index) {
     slide.classList.toggle('show', indexSlide);
   });
 
-currentIndex.textContent= `${index}`;
+currentIndex.textContent= `${index+1}`;
 }
 
 function nextSlide() {
